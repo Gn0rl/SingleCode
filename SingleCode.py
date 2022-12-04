@@ -11,6 +11,21 @@ ide = Tk()
 name = 'SingleCode'
 ide.title(f'untitled - {name}')
 file_path = ''
+theme = 'white'
+
+def switch_theme():
+    global theme
+    if theme == 'white':
+        theme = 'dark'
+        ide.configure(bg='#171717')
+        editor.configure(bg='#171717', fg='white')
+    elif theme == 'dark':
+        theme = 'white'
+        ide.configure(bg='white')
+    else:
+        theme = 'dark'
+        ide.configure(bg='#171717')
+
 
 def set_file_path(path):
     global file_path
@@ -73,6 +88,10 @@ filemenu.add_command(label='Exit',command=quit)
 
 menubar.add_cascade(label='File',menu=filemenu)
 
+thememenu = Menu(menubar,tearoff=0)
+thememenu.add_command(label='Switch',command=switch_theme)
+
+menubar.add_cascade(label='Theme',menu=thememenu)
 
 ide.config(menu=menubar)
 
@@ -82,7 +101,11 @@ code_output.pack()
 label = Label(ide, anchor='e')
 label.pack(fill='x')
 
+
+
 update_label()
+
+
 
 if __name__ == '__main__':
     ide.mainloop()
